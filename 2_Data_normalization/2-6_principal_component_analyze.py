@@ -1,0 +1,21 @@
+#-*- coding: utf-8 -*-
+#主成分分析 降维
+import pandas as pd
+
+#参数初始化
+inputfile = 'pdata.xls'
+outputfile = 'dimention_reducted.xls' #降维后的数据
+
+data = pd.read_excel(inputfile, index_col = u'num') #读入数据
+
+from sklearn.decomposition import PCA
+
+pca = PCA(n_components='mle',copy=False,whiten=False)
+pca.fit(data)
+pca.components_ #返回模型的各个特征向量
+a=pca.explained_variance_ratio_ #返回各个成分各自的方差百分比
+low_d=pca.transform(data)#降维处理
+print low_d
+print a
+#pca.inverse_transform(low_d) #复原数据
+

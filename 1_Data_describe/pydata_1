@@ -1,0 +1,20 @@
+import pandas as pd
+data_sour="pdata.xls"
+data=pd.read_excel(data_sour,index_col=u'num')
+import matplotlib.pyplot as plt
+plt.rcParams['font.sans-serif']=['SemHi']
+plt.figure()
+#p=data.boxplot()
+#x=p['fliers'][0].get_xdata()
+#y=p['fliers'][0].get_ydata()
+p = data.boxplot(return_type='dict') #
+x = p['fliers'][0].get_xdata() # 'flies'
+y = p['fliers'][0].get_ydata()
+y.sort()
+
+for i in range(len(x)):
+	if i>0:
+		plt.annotate(y[i],xy=(x[i],y[i]),xytext=(x[i]+0.05-0.8/(y[i]-y[i-1]),y[i]))
+	else:
+		plt.annotate(y[i],xy=(x[i],y[i]),xytext=(x[i]+0.08,y[i]))
+plt.show()
